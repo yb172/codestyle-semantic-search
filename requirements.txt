@@ -3,3 +3,7 @@ numpy
 pandas
 pydeck
 streamlit
+openai
+transformers
+matplotlib
+python-dotenv
