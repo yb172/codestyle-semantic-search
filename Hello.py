@@ -118,7 +118,7 @@ with st.spinner("Connecting to Pinecone..."):
     index, dims, count = init_pinecone(INDEX)
     text_map = init_key_value()
 
-def main():
+def run():
     st.write("# Codestyle Q&A")
     search = st.container()
     query = search.text_input('Ask a question!', "")
