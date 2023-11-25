@@ -14,7 +14,7 @@ def init_openai():
     
 @st.experimental_singleton(show_spinner=False)
 def init_key_value():
-    with open('./beyond_search_openai/src/beyond_search/mapping.json', 'r') as fp:
+    with open('./data/mapping.json', 'r') as fp:
         mappings = json.load(fp)
     return mappings
 

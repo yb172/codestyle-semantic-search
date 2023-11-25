@@ -7,3 +7,4 @@ openai
 transformers
 matplotlib
 python-dotenv
+pinecone-client
