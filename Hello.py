@@ -35,11 +35,11 @@ def get_embedding(client, text, model="text-embedding-ada-002"):
    text = text.replace("\n", " ")
    return client.embeddings.create(input = [text], model=model).data[0].embedding
 
-def create_context(mappings, question, index, max_len=3750):
+def create_context(client, mappings, question, index, max_len=3750):
     """
     Find most relevant context for a question via Pinecone search
     """
-    q_embed = get_embedding(question)
+    q_embed = get_embedding(client, question)
     res = index.query(q_embed, top_k=5, include_metadata=True)
     
 
@@ -71,6 +71,7 @@ def answer_question(
     Answer a question based on the most similar context from the dataframe texts
     """
     context, sources = create_context(
+        client,
         mappings,
         question,
         index,
