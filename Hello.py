@@ -62,6 +62,7 @@ def create_context(mappings, question, index, max_len=3750):
 def answer_question(
     client,
     index,
+    mappings,
     question="How to name a variable?",
     max_len=3550,
     debug=False,
@@ -70,6 +71,7 @@ def answer_question(
     Answer a question based on the most similar context from the dataframe texts
     """
     context, sources = create_context(
+        mappings,
         question,
         index,
         max_len=max_len,
@@ -95,8 +97,7 @@ def search(client, index, text_map, query):
     if query != "":
         with st.spinner("Retrieving, please wait..."):
             answer, sources = answer_question(
-                client, index, text_map,
-                question=query,
+                client, index, text_map, query,
             )
         # display the answer
         st.write(answer)
