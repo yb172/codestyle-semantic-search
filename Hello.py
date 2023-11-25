@@ -45,17 +45,19 @@ def create_context(mappings, question, index, max_len=3750):
 
     cur_len = 0
     contexts = []
+    sources = []
 
     for row in res['matches']:
         text = mappings[row['id']]
         cur_len += row['metadata']['n_tokens'] + 4
         if cur_len < max_len:
             contexts.append(text)
+            sources.append(row['metadata'])
         else:
             cur_len -= row['metadata']['n_tokens'] + 4
             if max_len - cur_len < 200:
                 break
-    return "\n\n###\n\n".join(contexts)
+    return "\n\n###\n\n".join(contexts), sources
 
 def answer_question(
     client,
@@ -67,7 +69,7 @@ def answer_question(
     """
     Answer a question based on the most similar context from the dataframe texts
     """
-    context = create_context(
+    context, sources = create_context(
         question,
         index,
         max_len=max_len,
@@ -84,7 +86,7 @@ def answer_question(
                 {"role": "user", "content": question},
             ]
         )
-        return response.choices[0].message.content
+        return response.choices[0].message.content, sources
     except Exception as e:
         print(e)
         return ""
