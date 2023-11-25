@@ -153,3 +153,6 @@ def run():
                 st.write(f"""
                 {source['document']} > {source['chapter']} > [{source['section']}]({source['link']})
                 """)
+
+if __name__ == "__main__":
+    run()
