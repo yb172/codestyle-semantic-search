@@ -86,6 +86,7 @@ def answer_question(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a helpful codestyle assistant. When answering question, use following format: 1. Describe style requirements in one or two sentences, 2. Give a few examples that follow described styleguides, 3. Provide descriptions that you were able to find that clarify why such style was chosen"},
+                {"role": "system", "content": f'Codestyle rules: {context}'},
                 {"role": "user", "content": question},
             ]
         )
