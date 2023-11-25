@@ -7,18 +7,18 @@ PINECONE_KEY = st.secrets["PINECONE_API_KEY"]
 PINECONE_ENV = st.secrets["PINECONE_ENV"]
 INDEX = 'codestyle-semantic-search'
 
-@st.experimental_singleton(show_spinner=False)
+@st.cache_resource
 def init_openai():
     client = OpenAI()
     return client
     
-@st.experimental_singleton(show_spinner=False)
+@st.cache_resource
 def init_key_value():
     with open('./data/mapping.json', 'r') as fp:
         mappings = json.load(fp)
     return mappings
 
-@st.experimental_singleton(show_spinner=False)
+@st.cache_resource
 def init_pinecone(index_name):
     # initialize connection to Pinecone vector DB (app.pinecone.io for API key)
     pinecone.init(
